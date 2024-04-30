@@ -1,0 +1,15 @@
+# Usa una imagen base que contenga Maven y Java
+FROM maven:4.0.0-jdk-17
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
+
+# Copia todo el contenido del directorio actual al directorio de trabajo del contenedor
+COPY . .
+
+# Construye la aplicación usando Maven
+RUN mvn clean package
+
+# Etiqueta la imagen con la versión del pom.xml y la fecha actual
+LABEL version="${project.version}"
+LABEL build_date="$(date +'%Y-%m-%dT%H:%M:%SZ')"
